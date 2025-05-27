@@ -19,7 +19,7 @@ class PrimaryButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         minimumSize: Size(180, 48), // Tamaño mínimo del botón
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       child: isLoading
