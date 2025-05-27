@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
-import 'views/login_view.dart';
+import 'routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,8 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FESC Login',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: const LoginView(),
+      theme: AppTheme.lightTheme.copyWith(
+        scaffoldBackgroundColor: Colors.grey[100],
+      ),
+      initialRoute: AppRoutes.initial,
+      routes: AppRoutes.routes,
     );
   }
 }

@@ -8,11 +8,11 @@ class CurvedBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return SizedBox(
-      width: 70,
+      width: 35,
       height: height,
       child: CustomPaint(
         painter: _CurvePainter(),
-        size: Size(70, height),
+        size: Size(35, height),
       ),
     );
   }
@@ -21,33 +21,28 @@ class CurvedBackground extends StatelessWidget {
 class _CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint redPaint = Paint()..color = AppTheme.primaryColor;
+    final Paint paint = Paint()
+      ..color = AppTheme.primaryColor
+      ..style = PaintingStyle.fill;
+
+    final Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.1)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 2);
     
-    // Creamos el path para la parte curva roja
     final Path path = Path();
+    
+    // Un rectángulo simple que ocupa todo el ancho
     path.moveTo(0, 0);
-    path.lineTo(size.width * 0.7, 0);
-    
-    // Curva principal que va desde arriba hasta abajo
-    path.quadraticBezierTo(
-      size.width * 0.5, size.height * 0.2,  // punto de control
-      size.width * 0.9, size.height * 0.3,   // punto final
-    );
-    
-    path.quadraticBezierTo(
-      size.width * 1.2, size.height * 0.5,  // punto de control
-      size.width * 0.9, size.height * 0.7,   // punto final
-    );
-    
-    path.quadraticBezierTo(
-      size.width * 0.5, size.height * 0.8,  // punto de control
-      size.width * 0.7, size.height,        // punto final
-    );
-    
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
+
+    // Dibujamos la sombra
+    canvas.drawPath(path, shadowPaint);
     
-    canvas.drawPath(path, redPaint);
+    // Dibujamos el color principal
+    canvas.drawPath(path, paint);
   }
 
   @override
