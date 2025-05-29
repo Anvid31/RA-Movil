@@ -28,9 +28,9 @@ class _CurvePainter extends CustomPainter {
     final Paint shadowPaint = Paint()
       ..color = Colors.black.withOpacity(0.1)
       ..maskFilter = MaskFilter.blur(BlurStyle.normal, 2);
-    
+
     final Path path = Path();
-    
+
     // Un rectángulo simple que ocupa todo el ancho
     path.moveTo(0, 0);
     path.lineTo(size.width, 0);
@@ -40,7 +40,7 @@ class _CurvePainter extends CustomPainter {
 
     // Dibujamos la sombra
     canvas.drawPath(path, shadowPaint);
-    
+
     // Dibujamos el color principal
     canvas.drawPath(path, paint);
   }

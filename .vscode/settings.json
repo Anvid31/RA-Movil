@@ -1,4 +1,6 @@
 {
-    "cmake.sourceDirectory": "C:/Users/mendo/OneDrive/Documentos/Proyectos/Flutter-Test/flutter_test_1/windows/flutter",
-    "dart.flutterSdkPath": "~/AppData/Local/flutter"
+  "files.autoSave": "afterDelay",
+  "dart.flutterHotReloadOnSave": "all",
+  "cmake.sourceDirectory": "C:/Users/mendo/OneDrive/Documentos/Proyectos/Flutter-Test/flutter_test_1/windows/flutter",
+  "dart.flutterSdkPath": "~/AppData/Local/flutter"
 }

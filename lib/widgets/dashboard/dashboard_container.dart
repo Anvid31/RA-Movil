@@ -33,16 +33,24 @@ class DashboardContainer extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-          _buildInfoCard(
-            'Total de Estudiantes',
-            '20',
-            '+2 desde el último semestre',
-          ),
-          SizedBox(height: 16),
-          _buildInfoCard(
-            'Promedio General',
-            '3.7',
-            '+0.2 desde el último semestre',
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoCard(
+                  'Total de Estudiantes',
+                  '20',
+                  '+2 desde el último semestre',
+                ),
+              ),
+              SizedBox(width: 16), // Espaciado entre cards
+              Expanded(
+                child: _buildInfoCard(
+                  'Promedio General',
+                  '3.7',
+                  '+0.2 desde el último semestre',
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 20),
           _buildChartContainer(),
@@ -172,4 +180,4 @@ class DashboardContainer extends StatelessWidget {
       ],
     );
   }
-} 
+}

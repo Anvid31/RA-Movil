@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
+import '../widgets/curved_background.dart';
 import '../widgets/custom_input.dart';
 import '../widgets/primary_button.dart';
-import '../widgets/curved_background.dart';
-import '../theme/app_theme.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -33,7 +33,7 @@ class _LoginViewState extends State<LoginView> {
   String? _validateUsername(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor ingrese su usuario';
-    } 
+    }
     return null;
   }
 
@@ -47,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
   void _handleLogin() {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
-      
+
       // Simular una operación de inicio de sesión
       Future.delayed(Duration(seconds: 2), () {
         setState(() => _isLoading = false);
@@ -76,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
                       // Logo FESC
                       Center(
                         child: Container(
-                          height: 120, 
+                          height: 120,
                           child: Image.asset(
                             'lib/assets/logo_fesc.png',
                             fit: BoxFit.contain,
