@@ -1,0 +1,172 @@
+<div class="layout">
+  <app-side-menu />
+
+  <main class="content">
+    <!-- Header -->
+    <header class="header">
+      <div class="search-container">
+        <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          class="search-input"
+        />
+      </div>
+
+      <div class="header-actions">
+        <button type="button" class="icon-button notification-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2Z"/>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+
+        <button type="button" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-container">
+      <!-- Filters Section -->
+      <section class="filters-section">
+        <div class="section-header">
+          <h1 class="page-title">Reportes de Resultados de Aprendizaje</h1>
+          <p class="page-subtitle">Selecciona los filtros para generar el reporte que necesitas</p>
+        </div>
+
+        <form [formGroup]="filtersForm" class="filters-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tipoReporte" class="form-label">Tipo de Reporte</label>
+              <select id="tipoReporte" formControlName="tipoReporte" class="form-select">
+                <option value="">Seleccionar tipo</option>
+                <option value="individual">Reporte Individual</option>
+                <option value="grupal">Reporte Grupal</option>
+                <option value="programa">Reporte por Programa</option>
+                <option value="curso">Reporte por Curso</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="programaAcademico" class="form-label">Programa Académico</label>
+              <select id="programaAcademico" formControlName="programaAcademico" class="form-select">
+                <option value="">Seleccionar programa</option>
+                <option value="software">Ingeniería de Software</option>
+                <option value="financiera">Administración Financiera</option>
+                <option value="logistica">Gestión Logística Empresarial</option>
+                <option value="moda">Diseño y Administración de Negocios de la Moda</option>
+                <option value="internacional">Administración de Negocios Internacionales</option>
+                <option value="turismo">Administración Turística y Hotelera</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cursoMateria" class="form-label">Curso/Materia</label>
+              <select id="cursoMateria" formControlName="cursoMateria" class="form-select">
+                <option value="">Seleccionar curso</option>
+                <option value="matematicas">Matemáticas</option>
+                <option value="programacion">Programación</option>
+                <option value="basesdatos">Bases de Datos</option>
+                <option value="redes">Redes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="estudiante" class="form-label">Estudiante</label>
+              <input
+                type="text"
+                id="estudiante"
+                formControlName="estudiante"
+                class="form-input"
+                placeholder="Buscar estudiante..."
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="fecha" class="form-label">Fecha</label>
+              <input
+                type="date"
+                id="fecha"
+                formControlName="fecha"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="nivelDesempeno" class="form-label">Nivel de Desempeño</label>
+              <select id="nivelDesempeno" formControlName="nivelDesempeno" class="form-select">
+                <option value="">Seleccionar nivel</option>
+                <option value="bajo">Bajo</option>
+                <option value="medio">Medio</option>
+                <option value="alto">Alto</option>
+                <option value="excelente">Excelente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" (click)="generarReporte()" class="generate-button">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+              Generar Reporte
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Report Actions -->
+      @if (reportGenerated()) {
+        <div class="report-actions">
+          <button type="button" (click)="exportarPDF()" class="action-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Exportar a PDF
+          </button>
+
+          <button type="button" (click)="exportarExcel()" class="action-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+            </svg>
+            Exportar a Excel
+          </button>
+
+          <button type="button" (click)="actualizarReporte()" class="action-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+            Actualizar Reporte
+          </button>
+        </div>
+
+        <!-- Chart Section -->
+        <section class="chart-section">
+          <h2 class="chart-title">Gráfico de Resultados</h2>
+          <div class="chart-container">
+            <canvas id="reportChart"></canvas>
+          </div>
+        </section>
+      }
+
+      @if (!reportGenerated()) {
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2.5 2.1h-15V5h15v14.1zm0-16.1h-15c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+          </svg>
+          <p>Selecciona los filtros y haz clic en "Generar Reporte" para visualizar los resultados</p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

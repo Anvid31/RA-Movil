@@ -1,0 +1,215 @@
+<div class="register-container">
+  <app-side-menu></app-side-menu>
+
+  <main class="register-main">
+    <!-- Top Header with Search and Icons -->
+    <div class="top-header">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Buscar..." class="search-input">
+      </div>
+
+      <div class="header-icons">
+        <button class="icon-button notification-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+        <button class="icon-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h1 class="page-title">{{ isEditMode ? 'Editar Rúbrica' : 'Generacion de Rubrica' }}</h1>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- Row 1: Información del RA -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Nombre del RA</label>
+            <input
+              type="text"
+              formControlName="nombreRA"
+              class="form-input"
+              placeholder="Nombre del RA">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Código del RA</label>
+            <input
+              type="text"
+              formControlName="codigoRA"
+              class="form-input"
+              placeholder="Código del RA">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Competencia asociada</label>
+            <select formControlName="competencia" class="form-select">
+              <option value="" disabled selected>Seleccionar</option>
+              <option *ngFor="let comp of competencias" [value]="comp.value">
+                {{ comp.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Programa Académico asociado</label>
+            <select formControlName="programa" class="form-select">
+              <option value="" disabled selected>Seleccionar</option>
+              <option *ngFor="let prog of programas" [value]="prog.value">
+                {{ prog.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Información del Estudiante y Docente -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Nombre del Estudiante</label>
+            <input
+              type="text"
+              formControlName="nombreEstudiante"
+              class="form-input"
+              placeholder="Nombre del Estudiante">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Codigo del Estudiante</label>
+            <input
+              type="text"
+              formControlName="codigoEstudiante"
+              class="form-input"
+              placeholder="Codigo del Estudiante">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Nombre del Docente</label>
+            <input
+              type="text"
+              formControlName="nombreDocente"
+              class="form-input"
+              placeholder="Nombre del Docente">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Codigo del Docente</label>
+            <input
+              type="text"
+              formControlName="codigoDocente"
+              class="form-input"
+              placeholder="Codigo del Docente">
+          </div>
+        </div>
+
+        <!-- Tabla de Criterios de Evaluación -->
+        <div class="criterios-section">
+          <div class="criterios-table-wrapper">
+            <table class="criterios-table">
+              <thead>
+                <tr>
+                  <th class="criterio-header">Criterios de Evaluación</th>
+                  <th class="nivel-header">1</th>
+                  <th class="nivel-header">2</th>
+                  <th class="nivel-header">3</th>
+                  <th class="nivel-header">4</th>
+                  <th class="nivel-header">5</th>
+                  <th class="comentarios-header">Comentarios</th>
+                  <th class="actions-header"></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="criterios">
+                <tr *ngFor="let criterio of criterios.controls; let i = index" [formGroupName]="i">
+                  <td class="criterio-cell">
+                    <input
+                      type="text"
+                      formControlName="descripcion"
+                      class="criterio-input"
+                      placeholder="Descripción del criterio">
+                  </td>
+                  <td class="nivel-cell">
+                    <label class="radio-container">
+                      <input type="radio" formControlName="nivel" [value]="1">
+                      <span class="radio-mark"></span>
+                    </label>
+                  </td>
+                  <td class="nivel-cell">
+                    <label class="radio-container">
+                      <input type="radio" formControlName="nivel" [value]="2">
+                      <span class="radio-mark"></span>
+                    </label>
+                  </td>
+                  <td class="nivel-cell">
+                    <label class="radio-container">
+                      <input type="radio" formControlName="nivel" [value]="3">
+                      <span class="radio-mark"></span>
+                    </label>
+                  </td>
+                  <td class="nivel-cell">
+                    <label class="radio-container">
+                      <input type="radio" formControlName="nivel" [value]="4">
+                      <span class="radio-mark"></span>
+                    </label>
+                  </td>
+                  <td class="nivel-cell">
+                    <label class="radio-container">
+                      <input type="radio" formControlName="nivel" [value]="5">
+                      <span class="radio-mark"></span>
+                    </label>
+                  </td>
+                  <td class="comentarios-cell">
+                    <input
+                      type="text"
+                      formControlName="comentarios"
+                      class="comentarios-input"
+                      placeholder="Comentarios">
+                  </td>
+                  <td class="actions-cell">
+                    <button
+                      type="button"
+                      (click)="removeCriterion(i)"
+                      class="remove-btn"
+                      [disabled]="criterios.length === 1"
+                      title="Eliminar criterio">
+                      ×
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <button type="button" (click)="addCriterion()" class="add-criterion-btn">
+            +
+          </button>
+        </div>
+
+        <!-- Promedio Final -->
+        <div class="promedio-section">
+          <label class="promedio-label">Promedio Final</label>
+          <div class="promedio-value">{{ promedioFinal() }}</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" (click)="onCancel()" class="btn btn-cancel">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-submit">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

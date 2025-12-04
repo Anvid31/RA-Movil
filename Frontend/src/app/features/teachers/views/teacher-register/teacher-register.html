@@ -1,0 +1,129 @@
+<div class="register-container">
+  <app-side-menu></app-side-menu>
+
+  <main class="register-main">
+    <!-- Top Header with Search and Icons -->
+    <div class="top-header">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Buscar..." class="search-input">
+      </div>
+
+      <div class="header-icons">
+        <button class="icon-button notification-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+          <span class="notification-badge">9</span>
+        </button>
+        <button class="icon-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h1 class="page-title">{{ isEditMode ? 'Editar Docente' : 'Registro de Docentes' }}</h1>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- Row 1: Nombre y Apellido -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Nombre</label>
+            <input
+              type="text"
+              formControlName="nombre"
+              class="form-input"
+              placeholder="Juan">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Apellido</label>
+            <input
+              type="text"
+              formControlName="apellido"
+              class="form-input"
+              placeholder="Pérez">
+          </div>
+        </div>
+
+        <!-- Row 2: Correo Electrónico (full width) -->
+        <div class="form-row">
+          <div class="form-field full-width">
+            <label class="form-label">Correo Electrónico</label>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="juan.perez@ejemplo.com">
+          </div>
+        </div>
+
+        <!-- Row 3: Tipo de Documento y Número -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Tipo de Documento</label>
+            <select formControlName="tipoDocumento" class="form-select">
+              <option value="" disabled selected>Seleccionar</option>
+              <option *ngFor="let type of documentTypes" [value]="type.value">
+                {{ type.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Número de Documento</label>
+            <input
+              type="text"
+              formControlName="numeroDocumento"
+              class="form-input"
+              placeholder="1234567890">
+          </div>
+        </div>
+
+        <!-- Row 4: Contraseña y Confirmar Contraseña -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Contraseña</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-input"
+              placeholder="">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Confirmar Contraseña</label>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="form-input"
+              placeholder="">
+          </div>
+        </div>
+
+        <!-- Password mismatch error -->
+        <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched"
+             class="error-message">
+          Las contraseñas no coinciden
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" (click)="onCancel()" class="btn btn-cancel">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-submit">
+            {{ isEditMode ? 'Actualizar' : 'Registrar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,103 @@
+<div class="programs-container">
+  <app-side-menu></app-side-menu>
+
+  <main class="programs-main" [formGroup]="form">
+    <!-- Top Header with Search and Icons -->
+    <div class="top-header">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input formControlName="q" type="text" placeholder="Buscar..." class="search-input">
+      </div>
+
+      <div class="header-icons">
+        <button class="icon-button notification-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+        <button class="icon-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <div class="page-header">
+        <h1 class="page-title">Programas Académicos</h1>
+        <button routerLink="/programs/new" class="new-program-button">
+          + Nuevo Programa
+        </button>
+      </div>
+
+      <a routerLink="/users-dashboard" class="back-link">
+        <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Volver al Panel de Control
+      </a>
+
+      <!-- Programs Table -->
+      <section class="table-section">
+        <div class="table-wrapper">
+          <table class="programs-table">
+            <thead>
+              <tr>
+                <th>Nombre del Programa</th>
+                <th>Facultad</th>
+                <th>Duración</th>
+                <th>Coordinador</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of pageItems(); trackBy: trackById">
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.facultad }}</td>
+                <td>{{ p.duracion }}</td>
+                <td>{{ p.coordinador }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <button (click)="editar(p.id)" class="action-btn edit-btn" title="Editar">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 17.25V21h3.75l11-11.03-3.75-3.75L3 17.25Zm14.71-9.04c.39-.39.39-1.02 0-1.41l-2.5-2.5a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.99-1.67Z"/>
+                      </svg>
+                    </button>
+                    <button (click)="eliminar(p.id)" class="action-btn delete-btn" title="Eliminar">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="pageItems().length === 0" class="empty-row">
+                <td colspan="5">No se encontraron resultados.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer -->
+        <div class="table-footer">
+          <div class="results-count">Mostrando {{ pageItems().length }} programas</div>
+          <div class="pagination">
+            <button (click)="prev()" [disabled]="page() === 1" class="pagination-btn">
+              Anterior
+            </button>
+            <button (click)="next()" [disabled]="page() === totalPages()" class="pagination-btn">
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

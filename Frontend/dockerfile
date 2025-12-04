@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Instalar envsubst
+RUN apk add --no-cache gettext
+
+# Copiar dependencias
+COPY package*.json ./
+
+RUN npm install
+
+# Copiar el código fuente completo
+COPY . .
+
+# Copiar el script de arranque
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 4000
+
+ENTRYPOINT ["/entrypoint.sh"]

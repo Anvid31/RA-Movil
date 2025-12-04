@@ -1,0 +1,104 @@
+<div class="register-container">
+  <app-side-menu></app-side-menu>
+
+  <main class="register-main">
+    <!-- Top Header with Search and Icons -->
+    <div class="top-header">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Buscar..." class="search-input">
+      </div>
+
+      <div class="header-icons">
+        <button class="icon-button notification-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+        <button class="icon-button">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <h1 class="page-title">{{ isEditMode ? 'Editar Programa Académico' : 'Registro de Programas Académicos' }}</h1>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- Row 1: Nombre y Código -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Nombre del Programa Académico</label>
+            <input
+              type="text"
+              formControlName="nombre"
+              class="form-input"
+              placeholder="Ingeniería de Software">
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Código del Programa</label>
+            <input
+              type="text"
+              formControlName="codigo"
+              class="form-input"
+              placeholder="1945783426">
+          </div>
+        </div>
+
+        <!-- Row 2: Sede y Semestres -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Sede</label>
+            <select formControlName="sede" class="form-select">
+              <option value="" disabled selected>Seleccionar</option>
+              <option *ngFor="let sede of sedes" [value]="sede.value">
+                {{ sede.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Semestres</label>
+            <input
+              type="number"
+              formControlName="semestres"
+              class="form-input"
+              placeholder="10"
+              min="1"
+              max="20">
+          </div>
+        </div>
+
+        <!-- Row 3: Descripción (full width) -->
+        <div class="form-row">
+          <div class="form-field full-width">
+            <label class="form-label">Descripcion</label>
+            <textarea
+              formControlName="descripcion"
+              class="form-textarea"
+              rows="5"
+              placeholder="El programa académico de Ingeniería de Software forma profesionales capaces de diseñar, desarrollar, implementar y mantener sistemas de software de alta calidad, aplicando principios de la ingeniería y las ciencias de la computación."></textarea>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" (click)="onCancel()" class="btn btn-cancel">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-submit">
+            {{ isEditMode ? 'Actualizar' : 'Registrar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* 🎨 Paleta del proyecto */
+@theme {
+  /* Cambia estos valores a los de tu marca */
+  --color-primary:    #BF0009; /* rojo marca */
+  --color-secondary:  #E5E7EB; /* gris 200 (fondos suaves) */
+  --color-tertiary:   #9CA3AF; /* gris 400 (borders / textos secundarios) */
+  --color-quaternary: #111827; /* gris 900 (títulos / texto fuerte) */
+
+  /* (Opcional) Algunas sombras/variantes para hover o bordes */
+  --color-primary-600: #A50008;
+  --color-primary-700: #8C0007;
+  --color-secondary-50: #F9FAFB;
+}

@@ -1,0 +1,111 @@
+<aside>
+  <!-- Branding -->
+  <div class="branding-section">
+    <h1 class="brand-title">FESC</h1>
+    <p class="brand-subtitle">Educación Superior</p>
+    <div class="brand-logo">★ Comfanorte</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <!-- Inicio -->
+    <a routerLink="/home"
+       [routerLinkActiveOptions]="{ exact: true }"
+       routerLinkActive="active"
+       class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="nav-icon">
+        <path d="M19 21H5a2 2 0 0 1-2-2v-7.586a1 1 0 0 1 .293-.707l8-8a1 1 0 0 1 1.414 0l8 8a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2ZM7 11v8h4v-5h2v5h4v-8l-5-5-5 5Z"/>
+      </svg>
+      <span>Inicio</span>
+    </a>
+
+    <!-- Register RA -->
+    <a routerLink="/register-ra" routerLinkActive="active" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6Z"/>
+      </svg>
+      <span>Registrar RA</span>
+    </a>
+
+    <!-- Users Dashboard -->
+    <a routerLink="/users-dashboard" routerLinkActive="active" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+        <path d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v4h8V3h-8Z"/>
+      </svg>
+      <span>Dashboard Usuarios</span>
+    </a>
+
+    <!-- Registro (collapsible) -->
+    <button type="button" class="nav-collapsible" (click)="toggleRegistro()">
+      <span class="nav-collapsible-content">
+        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+          <path d="M3 5h18v2H3V5Zm0 6h18v2H3v-2Zm0 6h18v2H3v-2Z"/>
+        </svg>
+        <span class="nav-collapsible-label">Registro</span>
+      </span>
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="chevron-icon"
+           [class.rotated]="registroOpen()"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
+      </svg>
+    </button>
+
+    <div class="submenu" *ngIf="registroOpen()">
+      <a routerLink="/teachers" routerLinkActive="active" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+          <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.33 0-8 1.83-8 4v2h16v-2c0-2.17-3.67-4-8-4Z"/>
+        </svg>
+        <span>Docentes</span>
+      </a>
+
+      <a routerLink="/students" routerLinkActive="active" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+          <path d="m12 3 9 5-9 5-9-5 9-5Zm0 7 6.16-3.42L12 3.9 5.84 6.58 12 10Zm-9 3 9 5 9-5v3l-9 5-9-5v-3Z"/>
+        </svg>
+        <span>Estudiantes</span>
+      </a>
+
+      <a routerLink="/programs" routerLinkActive="active" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+          <path d="M4 4h10v6H4V4Zm0 8h10v8H4v-8Zm12 0h4v8h-4v-8Zm0-8h4v6h-4V4Z"/>
+        </svg>
+        <span>Programa Académico</span>
+      </a>
+    </div>
+
+    <!-- Reports -->
+    <a routerLink="/reports" routerLinkActive="active" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+        <path d="M5 3h14v2H5V3Zm0 16h14v2H5v-2ZM7 9h2v8H7V9Zm4-3h2v11h-2V6Zm4 6h2v5h-2v-5Z"/>
+      </svg>
+      <span>Reportes</span>
+    </a>
+
+    <!-- Settings -->
+    <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24">
+        <path d="M19.14 12.94a7.043 7.043 0 0 0 .05-1l2.11-1.65-2-3.46-2.49.5a7.115 7.115 0 0 0-.86-.5L13.5 3h-4l-.45 2.83c-.3.13-.59.3-.86.5l-2.49-.5-2 3.46L5.81 12c-.02.33-.02.67 0 1l-2.11 1.65 2 3.46 2.49-.5c.27.2.56.37.86.5L9.5 21h4l.45-2.83c.3-.13.59-.3.86-.5l2.49.5 2-3.46L19.14 12.94ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+      </svg>
+      <span>Configuración</span>
+    </a>
+  </nav>
+
+  <!-- User Section -->
+  <div class="user-section">
+    <div class="user-info">
+      <div class="user-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" class="user-avatar-icon" viewBox="0 0 24 24">
+          <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.33 0-8 1.83-8 4v2h16v-2c0-2.17-3.67-4-8-4Z"/>
+        </svg>
+      </div>
+      <div class="user-details">
+        <p class="user-name">Admin</p>
+        <button type="button" (click)="logout()" class="user-logout">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</aside>
